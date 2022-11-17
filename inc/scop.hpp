@@ -1,21 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   scop.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvaquer <jvaquer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 17:51:42 by jvaquer           #+#    #+#             */
-/*   Updated: 2022/11/17 21:17:39 by jvaquer          ###   ########.fr       */
+/*   Created: 2022/11/17 10:27:06 by jvaquer           #+#    #+#             */
+/*   Updated: 2022/11/17 21:29:24 by jvaquer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/utils.hpp"
-#include "../inc/scop.hpp"
+#ifndef SCOP_HPP
+# define SCOP_HPP
 
-int     main(void)
+# include "utils.hpp"
+
+class Scop
 {
-	Scop scop;
-	scop.render();
-	return 0;
-}
+	private:
+
+		GLFWwindow* window;
+		unsigned int shaderProgram;
+		unsigned int VBO, VAO;
+	
+		const	char *vertexShaderSource;
+		const	char *fragmentShaderSource;
+
+	public:
+
+		Scop(/* args */);
+		void	render();
+		~Scop();
+};
+
+#endif

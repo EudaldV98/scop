@@ -6,7 +6,7 @@
 #    By: jvaquer <jvaquer@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/16 16:41:30 by jvaquer           #+#    #+#              #
-#    Updated: 2022/11/16 16:57:02 by jvaquer          ###   ########.fr        #
+#    Updated: 2022/11/17 21:30:07 by jvaquer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ GLAD = 					glad.c
 FRAME =					-lglfw -framework OpenGL -framework Cocoa -framework IOKit \
 						-framework CoreVideo -framework CoreFoundation
 
-SRC =					main.cpp
+SRC =					main.cpp input.cpp utils.cpp scop.cpp
 
 
 CXX_SRCS =		$(addprefix $(DIR_SRC), $(SRC))
@@ -62,7 +62,7 @@ $(NAME):	$(OBJ) $(OBJ_GLAD)
 			$(CXX) -c $^ -I$(INC_DEPENDENCIES) $(FLAGS) -o $@
 
 %.o: %.cpp
-			$(CXX) -c $^ -I$(INC_DEPENDENCIES) -L$(LIB_DEPENDENCIES) $(FLAGS) -o $@
+			$(CXX) -c $^ -I$(INC_DEPENDENCIES) -I$(DIR_HEADERS) -L$(LIB_DEPENDENCIES) $(FLAGS) -o $@
 
 clean:
 			$(RM) $(OBJ) $(OBJ_GLAD)
