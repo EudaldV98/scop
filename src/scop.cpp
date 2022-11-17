@@ -6,31 +6,16 @@
 /*   By: jvaquer <jvaquer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 21:28:35 by jvaquer           #+#    #+#             */
-/*   Updated: 2022/11/17 21:29:31 by jvaquer          ###   ########.fr       */
+/*   Updated: 2022/11/17 23:20:44 by jvaquer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/scop.hpp"
 
-Scop::Scop(/* args */)
+// glfw: initialize and configure
+// ------------------------------
+void	Scop::initGlfw()
 {
-	//settings
-	this->vertexShaderSource = "#version 330 core\n"
-			"layout (location = 0) in vec3 aPos;\n"
-			"void main()\n"
-			"{\n"
-			"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-			"}\0";
-	
-	this->fragmentShaderSource = "#version 330 core\n"
-			"out vec4 FragColor;\n"
-			"void main()\n"
-			"{\n"
-			"   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-			"}\n\0";
-
-	// glfw: initialize and configure
-	// ------------------------------
 	if (! glfwInit())
 	{
 		std::cout << "Failed to initialize GLFW" << std::endl;
@@ -39,14 +24,17 @@ Scop::Scop(/* args */)
 	glfwWindowHint(GLFW_SAMPLES, 4); // 4x antialiasing
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); // We want OpenGL 3.3
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // We don't want the old OpenGL 
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // We don't want the old OpenGL
 
 	#ifdef __APPLE__
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
 	#endif
+}
 
-	// glfw window creation
-	// --------------------
+// glfw window creation
+// --------------------
+void	Scop::createWindow()
+{
 	this->window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
 	if (this->window == NULL)
 	{
@@ -56,17 +44,23 @@ Scop::Scop(/* args */)
 	}
 	glfwMakeContextCurrent(window); // Initialize GLEW
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-	
-	// glad: load all OpenGL function pointers
-	// ---------------------------------------
+}
+
+// glad: load all OpenGL function pointers
+// ---------------------------------------
+void	Scop::loadGlad()
+{
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
 		exit(-1);
 	}
+}
 
-	// build and compile our shader program
-	// ------------------------------------
+// build and compile our shader program
+// ------------------------------------
+void	Scop::compileShaders()
+{
 	// vertex shader
 	unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
@@ -104,9 +98,12 @@ Scop::Scop(/* args */)
 	}
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
+}
 
-	// set up vertex data (and buffer(s)) and configure vertex attributes
-	// ------------------------------------------------------------------
+// set up vertex data (and buffer(s)) and configure vertex attributes
+// ------------------------------------------------------------------
+void	Scop::setVertexData()
+{
 	float vertices[] = {
 		-0.5f, -0.5f, 0.0f, // left  
 		 0.5f, -0.5f, 0.0f, // right 
@@ -134,6 +131,30 @@ Scop::Scop(/* args */)
 
 	// uncomment this call to draw in wireframe polygons.
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+}
+
+Scop::Scop(/* args */)
+{
+	//settings
+	this->vertexShaderSource = "#version 330 core\n"
+			"layout (location = 0) in vec3 aPos;\n"
+			"void main()\n"
+			"{\n"
+			"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+			"}\0";
+	
+	this->fragmentShaderSource = "#version 330 core\n"
+			"out vec4 FragColor;\n"
+			"void main()\n"
+			"{\n"
+			"   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+			"}\n\0";
+
+	this->initGlfw();
+	this->createWindow();
+	this->loadGlad();
+	this->compileShaders();
+	this->setVertexData();
 }
 
 void	Scop::render()

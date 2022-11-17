@@ -6,7 +6,7 @@
 /*   By: jvaquer <jvaquer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 10:27:06 by jvaquer           #+#    #+#             */
-/*   Updated: 2022/11/17 21:29:24 by jvaquer          ###   ########.fr       */
+/*   Updated: 2022/11/17 23:17:39 by jvaquer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ class Scop
 
 		Scop(/* args */);
 		void	render();
+		void	initGlfw();
+		void	createWindow();
+		void	loadGlad();
+		void	compileShaders();
+		void	setVertexData();
 		~Scop();
 };
 
