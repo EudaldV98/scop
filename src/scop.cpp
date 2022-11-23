@@ -6,7 +6,7 @@
 /*   By: jvaquer <jvaquer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 21:28:35 by jvaquer           #+#    #+#             */
-/*   Updated: 2022/11/17 23:20:44 by jvaquer          ###   ########.fr       */
+/*   Updated: 2022/11/21 16:57:59 by jvaquer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,10 +157,10 @@ Scop::Scop(/* args */)
 	this->setVertexData();
 }
 
+// render loop
+// -----------
 void	Scop::render()
 {
-	// render loop
-	// -----------
 	while (!glfwWindowShouldClose(this->window))
 	{
 		// input
