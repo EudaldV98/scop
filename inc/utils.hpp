@@ -6,7 +6,7 @@
 /*   By: jvaquer <jvaquer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:42:33 by jvaquer           #+#    #+#             */
-/*   Updated: 2022/11/17 21:22:28 by jvaquer          ###   ########.fr       */
+/*   Updated: 2022/12/01 10:49:07 by jvaquer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void 	processInput(GLFWwindow *window);
 
 // settings
 const	unsigned int SCR_WIDTH = 800;
-const	unsigned int SCR_HEIGHT = 600;
+const	unsigned int SCR_HEIGHT = 800;
 
 void	processInput(GLFWwindow *window);
 void	framebuffer_size_callback(GLFWwindow* window, int width, int height);
