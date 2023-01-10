@@ -6,7 +6,7 @@
 /*   By: jvaquer <jvaquer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:42:33 by jvaquer           #+#    #+#             */
-/*   Updated: 2022/12/01 10:49:07 by jvaquer          ###   ########.fr       */
+/*   Updated: 2022/12/05 17:14:13 by jvaquer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 # include <glad/glad.h>
 # include <GLFW/glfw3.h>
 # include <iostream>
+# include <string>
+# include <fstream>
+# include <sstream>
+# include <iostream>
+# include <cerrno>
+# include <cmath>
 
 void	framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void 	processInput(GLFWwindow *window);

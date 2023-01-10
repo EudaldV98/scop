@@ -6,7 +6,7 @@
 /*   By: jvaquer <jvaquer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 21:28:35 by jvaquer           #+#    #+#             */
-/*   Updated: 2022/12/01 10:45:20 by jvaquer          ###   ########.fr       */
+/*   Updated: 2022/12/05 17:34:18 by jvaquer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,43 +61,6 @@ void	Scop::loadGlad()
 // ------------------------------------
 void	Scop::compileShaders()
 {
-	// vertex shader
-	unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-	glCompileShader(vertexShader);
-	// check for shader compile errors
-	int success;
-	char infoLog[512];
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-	}
-	// fragment shader
-	unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-	glCompileShader(fragmentShader);
-	// check for shader compile errors
-	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
-	}
-	// link shaders
-	shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-	glLinkProgram(shaderProgram);
-	// check for linking errors
-	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-	if (!success) {
-		glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
-	}
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
 }
 
 // set up vertex data (and buffer(s)) and configure vertex attributes
@@ -157,24 +120,13 @@ void	Scop::setVertexData()
 Scop::Scop(/* args */)
 {
 	//settings
-	this->vertexShaderSource = "#version 330 core\n"
-			"layout (location = 0) in vec3 aPos;\n"
-			"void main()\n"
-			"{\n"
-			"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-			"}\0";
-	
-	this->fragmentShaderSource = "#version 330 core\n"
-			"out vec4 FragColor;\n"
-			"void main()\n"
-			"{\n"
-			"   FragColor = vec4(1.0f, 1.0f, 0.2f, 1.0f);\n"
-			"}\n\0";
+	// this->shaderProgram;
 
 	this->initGlfw();
 	this->createWindow();
 	this->loadGlad();
-	this->compileShaders();
+	//this->compileShaders();
+	this->shaderProgram.construct("../dependencies/shaders/default.vert", "../dependencies/shaders/default.frag");
 	this->setVertexData();
 }
 
@@ -194,7 +146,8 @@ void	Scop::render()
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// draw our first triangle
-		glUseProgram(this->shaderProgram);
+		// glUseProgram(this->shaderProgram);
+		this->shaderProgram.activate_shader();
 		glBindVertexArray(this->VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 		// glDrawArrays(GL_TRIANGLES, 0, 9);
 		glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
@@ -214,7 +167,8 @@ Scop::~Scop()
 	glDeleteVertexArrays(1, &this->VAO);
 	glDeleteBuffers(1, &this->VBO);
 	glDeleteBuffers(1, &this->EBO);
-	glDeleteProgram(this->shaderProgram);
+	// glDeleteProgram(this->shaderProgram);
+	this->shaderProgram.delete_shader();
 
 	// glfw: terminate, clearing all previously allocated GLFW resources.
 	// ------------------------------------------------------------------
