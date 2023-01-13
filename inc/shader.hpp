@@ -6,7 +6,7 @@
 /*   By: jvaquer <jvaquer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 11:13:23 by jvaquer           #+#    #+#             */
-/*   Updated: 2023/01/10 13:38:31 by jvaquer          ###   ########.fr       */
+/*   Updated: 2023/01/13 14:00:22 by jvaquer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,14 @@ class Shader
 {
 	public:
 		GLuint	id;
+		unsigned int	vertexShader;
+		unsigned int	fragmentShader;
 
 		Shader();
 		void	construct(const char * vertexFile, const char * fragmentFile);
+		void	fragment_shader(const char *fragmentSource);
+		void	vertex_shader(const char *vertexSource);
+		void	link_shaders();
 		void	activate_shader();
 		void	delete_shader();
 		~Shader();

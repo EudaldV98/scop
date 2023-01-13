@@ -6,7 +6,7 @@
 /*   By: jvaquer <jvaquer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 21:28:35 by jvaquer           #+#    #+#             */
-/*   Updated: 2023/01/13 11:04:16 by jvaquer          ###   ########.fr       */
+/*   Updated: 2023/01/13 13:25:14 by jvaquer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,12 +123,10 @@ void	Scop::setVertexData()
 Scop::Scop(/* args */)
 {
 	//settings
-	// this->shaderProgram;
 
 	this->initGlfw();
 	this->createWindow();
 	this->loadGlad();
-	//this->compileShaders();
 	this->shaderProgram.construct("../dependencies/shaders/default.vert", "../dependencies/shaders/default.frag");
 	this->setVertexData();
 }
