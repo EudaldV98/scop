@@ -6,7 +6,7 @@
 /*   By: jvaquer <jvaquer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 21:28:35 by jvaquer           #+#    #+#             */
-/*   Updated: 2022/12/05 17:34:18 by jvaquer          ###   ########.fr       */
+/*   Updated: 2023/01/13 11:04:16 by jvaquer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,6 @@ void	Scop::loadGlad()
 	}
 }
 
-// build and compile our shader program
-// ------------------------------------
-void	Scop::compileShaders()
-{
-}
-
 // set up vertex data (and buffer(s)) and configure vertex attributes
 // ------------------------------------------------------------------
 void	Scop::setVertexData()
@@ -82,11 +76,14 @@ void	Scop::setVertexData()
 		5, 4, 1
 	};
 
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	glGenBuffers(1, &EBO);
+	// glGenVertexArrays(1, &VAO);
+	this->VAO.construct();
+	// glGenBuffers(1, &VBO);
+	// glGenBuffers(1, &EBO);
+	
 	// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-	glBindVertexArray(VAO);
+	// glBindVertexArray(VAO);
+	this->VAO.bind();
 
 	for (int i = 0; i < sizeof(vertices) / sizeof(float); i++)
 	{
@@ -95,23 +92,29 @@ void	Scop::setVertexData()
 			std::cout << std::endl;
 	}
 	
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	// glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	// glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	this->VBO.construct(vertices, sizeof(vertices));
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	// glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	// glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	this->EBO.construct(indices, sizeof(indices));
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
+	// glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	// glEnableVertexAttribArray(0);
+	this->VAO.linkVBO(this->VBO, 0);
 
 	// note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	// glBindBuffer(GL_ARRAY_BUFFER, 0);
+	this->VBO.unbind();
 
 	// You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
 	// VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
-	glBindVertexArray(0);
+	// glBindVertexArray(0);
+	this->VAO.unbind();
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	// glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	this->EBO.unbind();
 
 	// uncomment this call to draw in wireframe polygons.
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -148,7 +151,7 @@ void	Scop::render()
 		// draw our first triangle
 		// glUseProgram(this->shaderProgram);
 		this->shaderProgram.activate_shader();
-		glBindVertexArray(this->VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
+		glBindVertexArray(this->VAO.id); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 		// glDrawArrays(GL_TRIANGLES, 0, 9);
 		glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
 		// glBindVertexArray(0); // no need to unbind it every time 
@@ -164,9 +167,12 @@ Scop::~Scop()
 {
 	// optional: de-allocate all resources once they've outlived their purpose:
 	// ------------------------------------------------------------------------
-	glDeleteVertexArrays(1, &this->VAO);
-	glDeleteBuffers(1, &this->VBO);
-	glDeleteBuffers(1, &this->EBO);
+	// glDeleteVertexArrays(1, &this->VAO);
+	this->VAO.delete_();
+	// glDeleteBuffers(1, &this->VBO);
+	this->VBO.delete_();
+	// glDeleteBuffers(1, &this->EBO);
+	this->EBO.delete_();
 	// glDeleteProgram(this->shaderProgram);
 	this->shaderProgram.delete_shader();
 

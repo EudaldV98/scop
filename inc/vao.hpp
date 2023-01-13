@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shader.hpp                                         :+:      :+:    :+:   */
+/*   vao.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvaquer <jvaquer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/01 11:13:23 by jvaquer           #+#    #+#             */
-/*   Updated: 2023/01/10 13:38:31 by jvaquer          ###   ########.fr       */
+/*   Created: 2023/01/10 16:50:39 by jvaquer           #+#    #+#             */
+/*   Updated: 2023/01/13 10:59:04 by jvaquer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHADER_HPP
-# define SHADER_HPP
+#ifndef VAO_HPP
+# define VAO_HPP
 
 # include "utils.hpp"
+# include "vbo.hpp"
 
-std::string get_file_contents(const char *filename);
-
-class Shader
+class VAO
 {
-	public:
-		GLuint	id;
+    public:
+        GLuint id;
 
-		Shader();
-		void	construct(const char * vertexFile, const char * fragmentFile);
-		void	activate_shader();
-		void	delete_shader();
-		~Shader();
+        VAO();
+        void    construct();
+        void    linkVBO(VBO vbo, GLuint layout);
+        void    bind();
+        void    unbind();
+        void    delete_();
 };
 
 #endif

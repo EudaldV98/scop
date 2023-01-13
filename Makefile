@@ -6,7 +6,7 @@
 #    By: jvaquer <jvaquer@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/16 16:41:30 by jvaquer           #+#    #+#              #
-#    Updated: 2022/12/02 00:45:58 by jvaquer          ###   ########.fr        #
+#    Updated: 2023/01/13 10:49:51 by jvaquer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ GLAD = 					glad.c
 FRAME =					-lglfw -framework OpenGL -framework Cocoa -framework IOKit \
 						-framework CoreVideo -framework CoreFoundation
 
-SRC =					main.cpp input.cpp utils.cpp scop.cpp shader.cpp
+SRC =					main.cpp input.cpp utils.cpp scop.cpp shader.cpp vao.cpp vbo.cpp ebo.cpp
 
 
 CXX_SRCS =		$(addprefix $(DIR_SRC), $(SRC))

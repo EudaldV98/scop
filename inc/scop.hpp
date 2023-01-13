@@ -6,7 +6,7 @@
 /*   By: jvaquer <jvaquer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 10:27:06 by jvaquer           #+#    #+#             */
-/*   Updated: 2023/01/10 13:25:55 by jvaquer          ###   ########.fr       */
+/*   Updated: 2023/01/11 10:52:55 by jvaquer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include "utils.hpp"
 # include "shader.hpp"
+# include "vbo.hpp"
+# include "vao.hpp"
+# include "ebo.hpp"
 
 class Scop
 {
@@ -22,10 +25,10 @@ class Scop
 
 		GLFWwindow*		window;
 		Shader			shaderProgram;
-		unsigned int	VBO, VAO, EBO;
-	
-		const	char	*vertexShaderSource;
-		const	char	*fragmentShaderSource;
+		VBO VBO;
+		VAO VAO;
+		EBO EBO;
+		// unsigned int	VBO, VAO, EBO;
 
 	public:
 
