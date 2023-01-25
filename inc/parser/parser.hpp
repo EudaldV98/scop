@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   parser.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvaquer <jvaquer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 17:51:42 by jvaquer           #+#    #+#             */
-/*   Updated: 2023/01/25 11:27:03 by jvaquer          ###   ########.fr       */
+/*   Created: 2023/01/23 16:54:45 by jvaquer           #+#    #+#             */
+/*   Updated: 2023/01/25 10:26:09 by jvaquer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/utils.hpp"
-#include "../inc/scop.hpp"
+#ifndef OBJLOADER_HPP
+# define OBJLOADER_HPP
 
-int     main(void)
-{
-	Scop scop;
-	// Read our .obj file
-	std::vector<Vec3> vertices;
-	std::vector<Vec2> uvs;
-	std::vector<Vec3> normals; // Won't be used at the moment.
-	bool res = loadOBJ("../resources/test.obj", vertices, uvs, normals);
-	scop.render();
-	return 0;
-}
+# include "utils.hpp"
+
+bool loadOBJ(const char *path, std::vector<Vec3> & out_vertices, std::vector<Vec2> & out_uvs, std::vector <Vec3> & out_normals);
+
+#endif

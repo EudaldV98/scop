@@ -88,6 +88,7 @@
         "stack": "cpp",
         "typeindex": "cpp",
         "source_location": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "strstream": "cpp"
     }
 }

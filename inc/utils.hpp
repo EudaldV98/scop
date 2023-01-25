@@ -6,7 +6,7 @@
 /*   By: jvaquer <jvaquer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:42:33 by jvaquer           #+#    #+#             */
-/*   Updated: 2022/12/05 17:14:13 by jvaquer          ###   ########.fr       */
+/*   Updated: 2023/01/25 10:23:48 by jvaquer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@
 # include <iostream>
 # include <cerrno>
 # include <cmath>
+# include <vector>
+
+# include "vec3.hpp"
+# include "vec2.hpp"
+# include "parser/parser.hpp"
 
 void	framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void 	processInput(GLFWwindow *window);
