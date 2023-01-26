@@ -6,7 +6,7 @@
 /*   By: jvaquer <jvaquer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 21:28:35 by jvaquer           #+#    #+#             */
-/*   Updated: 2023/01/13 13:25:14 by jvaquer          ###   ########.fr       */
+/*   Updated: 2023/01/26 14:57:15 by jvaquer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	Scop::setVertexData()
 		-0.5f / 2, 0.5f * float(sqrt(3)) / 6, 0.0f,
 		0.5f / 2, 0.5f * float(sqrt(3)) / 6, 0.0f,
 		0.0f, -0.5 * float(sqrt(3)) / 3, 0.0f
-	}; 
+	};
 
 	unsigned int indices[] = {
 		0, 3, 5,
@@ -128,13 +128,13 @@ Scop::Scop(/* args */)
 	this->createWindow();
 	this->loadGlad();
 	this->shaderProgram.construct("../dependencies/shaders/default.vert", "../dependencies/shaders/default.frag");
-	this->setVertexData();
 }
 
 // render loop
 // -----------
 void	Scop::render()
 {
+	this->setVertexData();
 	while (!glfwWindowShouldClose(this->window))
 	{
 		// input

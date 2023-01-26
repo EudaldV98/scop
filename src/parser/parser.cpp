@@ -6,7 +6,7 @@
 /*   By: jvaquer <jvaquer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 10:02:41 by jvaquer           #+#    #+#             */
-/*   Updated: 2023/01/25 15:55:06 by jvaquer          ###   ########.fr       */
+/*   Updated: 2023/01/26 13:57:28 by jvaquer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool loadOBJ(const char *path, std::vector<Vec3> & out_vertices, std::vector<Vec
 	}
 	
 	std::string		line;
-	while(getline(file, line))
+	while(std::getline(file, line))
 	{
 		if (line.substr(0,2) == "v ")
 		{
@@ -46,15 +46,48 @@ bool loadOBJ(const char *path, std::vector<Vec3> & out_vertices, std::vector<Vec
 		}
 		else if (line.substr(0, 2) == "vt")
 		{
-			std::cout << line << std::endl;
+			// std::cout << line << std::endl;
 			std::istringstream v(line.substr(3));
 			double x, y;
 			v >> x;
 			v >> y;
 			Vec2 tmp_uv(x, y);
-			std::cout << tmp_uv.x << " " << tmp_uv.y << std::endl;
+			// std::cout << tmp_uv.x << " " << tmp_uv.y << std::endl;
 			tmp_uvs.push_back(tmp_uv);
+			// std::cout << std::endl;
+		}
+		else if (line.substr(0, 2) == "vn")
+		{
+			std::cout << line << std::endl;
+			std::istringstream v(line.substr(3));
+			double x, y, z;
+			v >> x;
+			v >> y;
+			v >> z;
+			Vec3 tmp_normal(x, y, z);
+			std::cout << tmp_normal.x << " " << tmp_normal.y << " " << tmp_normal.z << std::endl;
+			tmp_normals.push_back(tmp_normal);
 			std::cout << std::endl;
+		}
+		else if (line.substr(0, 2) == "f ")
+		{
+			unsigned int vertexIdx[3], uvIdx[3], normalIdx[3];
+			const char *line_buf = line.c_str();
+			int match = sscanf(line_buf, "f %d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIdx[0], &uvIdx[0], &normalIdx[0], &vertexIdx[1], &uvIdx[1], &normalIdx[1], &vertexIdx[2], &uvIdx[2], &normalIdx[2]);
+			if (match != 9)
+			{
+				std::cerr << "Error: File corrupted." << std::endl;
+				exit(1);
+			}
+			vertexIndices.push_back(vertexIdx[0]);
+			vertexIndices.push_back(vertexIdx[1]);
+			vertexIndices.push_back(vertexIdx[2]);
+			uvIndices.push_back(vertexIdx[0]);
+			uvIndices.push_back(vertexIdx[1]);
+			uvIndices.push_back(vertexIdx[2]);
+			normalIndices.push_back(normalIdx[0]);
+			normalIndices.push_back(normalIdx[1]);
+			normalIndices.push_back(normalIdx[2]);
 		}
 	}
 	return true;
