@@ -6,7 +6,7 @@
 /*   By: jvaquer <jvaquer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 10:27:06 by jvaquer           #+#    #+#             */
-/*   Updated: 2023/01/11 10:52:55 by jvaquer          ###   ########.fr       */
+/*   Updated: 2023/01/30 17:02:33 by jvaquer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ class Scop
 	public:
 
 		Scop(/* args */);
-		void	render();
+		void	render(std::vector<Vec3> vertices);
 		void	initGlfw();
 		void	createWindow();
 		void	loadGlad();
 		void	compileShaders();
-		void	setVertexData();
+		void	setVertexData(std::vector<Vec3> vertices);
 		~Scop();
 };
 

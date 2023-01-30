@@ -6,7 +6,7 @@
 /*   By: jvaquer <jvaquer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:25:17 by jvaquer           #+#    #+#             */
-/*   Updated: 2023/01/13 10:59:26 by jvaquer          ###   ########.fr       */
+/*   Updated: 2023/01/30 18:08:08 by jvaquer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	VAO::construct()
 	glGenVertexArrays(1, &this->id);
 }
 
-void	VAO::linkVBO(VBO vbo, GLuint layout)
+void	VAO::linkAttrib(VBO vbo, GLuint layout, GLuint numComponents, GLenum type, GLsizeiptr stride, void *offset)
 {
 	vbo.bind();
-	glVertexAttribPointer(layout, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(layout, numComponents, type, GL_FALSE, stride, offset);
+	glEnableVertexAttribArray(layout);
 	vbo.unbind();
 }
 

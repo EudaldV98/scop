@@ -6,7 +6,7 @@
 /*   By: jvaquer <jvaquer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 13:35:43 by jvaquer           #+#    #+#             */
-/*   Updated: 2023/01/13 10:50:16 by jvaquer          ###   ########.fr       */
+/*   Updated: 2023/01/30 17:14:03 by jvaquer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ class VBO
 		
 		VBO();
 		void construct(GLfloat *vertices, GLsizeiptr size);
+		void construct(std::vector<Vec3> *vertices, GLsizeiptr size);
 		void bind();
 		void unbind();
 		void delete_();
